@@ -265,6 +265,26 @@ SROS_VARIANTS = {
                 # isa-bb-v --> Broadband (BNG, LAC, LNS)
                 # isa-tunnel-v (Already Configured) --> IP Tunneling (GRE, IPSec)
     },
+        "sr-12": {
+        "deployment_model": "distributed",
+        # control plane (CPM)
+        "max_nics": 36,
+        "cp": {
+            "min_ram": 4,
+            "timos_line": "slot=A chassis=SR-12 sfm=m-sfm6-7/12 card=cpm5",
+        },
+        # line card (IOM/XCM)
+        "lcs": [
+            {
+                "min_ram": 6,
+                "timos_line": "slot=1 chassis=SR-12 sfm=m-sfm6-7/12 card=iom5-e mda/1=me6-100gb-qsfp28",
+                "card_config": """/configure sfm 1 sfm-type m-sfm6-7/12
+                /configure card 1 card-type iom5-e
+                /configure card 1 mda 1 mda-type me6-100gb-qsfp28
+            """,
+            }
+        ],
+    },
 }
 
 SROS_COMMON_CFG = """/configure system name {name}
